@@ -1,15 +1,9 @@
-﻿using autosens.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace autosens
@@ -54,7 +48,7 @@ namespace autosens
                 MessageBox.Show("Error calculating sensitivity: " + ex.Message);
                 return 0f;
             }
-            sensitivity = sensitivity * (Storage.userSettings.dpi / 1600f);
+            sensitivity = sensitivity * (1600f / Storage.userSettings.dpi);
             return sensitivity;
         }
 
@@ -241,7 +235,7 @@ namespace autosens
             {
                 cm = new DataTable().Compute(expressionString, null);
                 finalCm = Convert.ToSingle(cm);
-                finalCm = finalCm * (Storage.userSettings.dpi / 1600f);
+                finalCm = finalCm * (1600f / Storage.userSettings.dpi);
             }
             catch
             {
@@ -300,6 +294,7 @@ namespace autosens
 
             if (match.Success)
             {
+                Console.WriteLine("Found old sensitivity: " + match.Groups[1].Value);
                 string numberString = match.Groups[1].Value;
                 return float.Parse(numberString);
             }

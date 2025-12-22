@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using autosens.Forms;
 
@@ -29,7 +22,7 @@ namespace autosens
             {
                 if (Storage.newUser)
                 {
-                    Form3 form3 = new Form3("We didn't find a usersettings.json file.\n You can fill out the boxes below, or not change them to leave them as default.");
+                    Form3 form3 = new Form3("Create user settings.");
                     form3.ShowDialog();
                 }
                 if ( Storage.userSettings.defaultSens != 0)

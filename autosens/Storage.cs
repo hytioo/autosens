@@ -32,7 +32,9 @@ namespace autosens
                 gamesList = new List<Game>
                 {
                     new Game { name = "The Finals", conversionCalc = "571.5 / [cm]", configPathTemplate = "[LOCALAPPDATA]\\Discovery\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav", replacementText = "MouseSensitivity", configPath = " " },
-                    new Game { name = "Counterstrike 2", conversionCalc = "25.977 / [cm]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\userdata\\[STEAMID]\\730\\local\\cfg\\cs2_user_convars_0_slot0.vcfg", replacementText = "\"sensitivity\"", configPath = " "}
+                    new Game { name = "Counterstrike 2", conversionCalc = "25.977 / [cm]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\userdata\\[STEAMID]\\730\\local\\cfg\\cs2_user_convars_0_slot0.vcfg", replacementText = "\"sensitivity\"", configPath = " "},
+                    new Game { name = "Battlefield V", conversionCalc = "25.977 / [cm]", configPathTemplate = "[DOCUMENTS]\\Battlefield V\\settings\\PROFSAVE_profile_synced", replacementText = "GstInput.MouseSensitivity", configPath = " "},
+                    new Game { name = "Battlefield 4", conversionCalc = "25.977 / [cm]", configPathTemplate = "[DOCUMENTS]\\Battlefield 4\\settings\\PROFSAVE_profile", replacementText = "GstInput.MouseSensitivity", configPath = " "}
                 };
             }
 
@@ -52,9 +54,11 @@ namespace autosens
         {
             jsonGamesString = File.ReadAllText(jsonGamesPath);
             gamesList = JsonSerializer.Deserialize<List<Game>>(jsonGamesString);
+            gamesList.Sort((x, y) => x.name.CompareTo(y.name));
         }
         public static void writeGamesList()
         {
+            gamesList.Sort((x, y) => x.name.CompareTo(y.name));
             jsonGamesString = JsonSerializer.Serialize(gamesList, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(jsonGamesPath, jsonGamesString);
         }

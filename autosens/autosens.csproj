@@ -57,6 +57,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigSearcher.cs" />
     <Compile Include="Forms\Form3.cs">
       <SubType>Form</SubType>
     </Compile>

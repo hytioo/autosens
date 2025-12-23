@@ -32,7 +32,7 @@ namespace autosens
             replaceFileContents(configPath, replacementText, sensitivity);
         }
 
-        private static float CalculateSensitivity(Game game, float cm)
+        public static float CalculateSensitivity(Game game, float cm)
         {
             float sensitivity = 0f;
             string unprocessedExpression = game.conversionCalc;
@@ -206,7 +206,7 @@ namespace autosens
                 }
                 catch
                 {
-                    
+
                 }
             }
             else
@@ -218,11 +218,11 @@ namespace autosens
                 }
                 catch
                 {
-                    
+
                 }
             }
 
-            if(currentSens == 0f)
+            if (currentSens == 0f)
             {
                 return "Not Found";
             }

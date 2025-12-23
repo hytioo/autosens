@@ -1,7 +1,7 @@
-﻿using System;
+﻿using autosens.Forms;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using autosens.Forms;
 
 namespace autosens
 {
@@ -18,21 +18,21 @@ namespace autosens
             comboGame.DataSource = Storage.gamesList;
             comboGame.DisplayMember = "name";
             comboGame.ValueMember = "conversionCalc";
-            if(Storage.userSettings != null)
+            if (Storage.userSettings != null)
             {
                 if (Storage.newUser)
                 {
                     Form3 form3 = new Form3("Create user settings.");
                     form3.ShowDialog();
                 }
-                if ( Storage.userSettings.defaultSens != 0)
+                if (Storage.userSettings.defaultSens != 0)
                 {
                     textBox1.Text = Storage.userSettings.defaultSens.ToString("0.0");
                 }
             }
             else
             {
-                Form3 form3 = new Form3("We didn't find a usersettings.json file.\n You can fill out the boxes below, or not change them to leave them as default.");
+                Form3 form3 = new Form3("User settings.");
                 form3.ShowDialog();
             }
         }
@@ -60,15 +60,17 @@ namespace autosens
             if (obj != null)
             {
                 Console.WriteLine("Selected game directory: " + obj.configPath);
-                if(File.Exists(obj.configPath))
+                if (File.Exists(obj.configPath))
                 {
                     Core.changeSensitivity(obj, float.Parse(textBox1.Text));
                     obj.currentSensitivity = Core.currentCm(obj);
                     Storage.writeJson();
                     label3.Text = "Current: " + obj.currentSensitivity;
                 }
-                else {                     
-                    string directoryErrorMessage = (obj.name + " configuration file not found: \"" + obj.configPath + ".\"  \nYou can manually update this at \"" + Storage.jsonGamesPath + ".\" Check your user settings are up to date.");
+                else
+                {
+                    string sensitvity = Core.CalculateSensitivity(obj, float.Parse(textBox1.Text)).ToString("0.0000");
+                    string directoryErrorMessage = (obj.name + " configuration file not found: \"" + obj.configPath + ".\"  \nYou can manually update this path at \"" + Storage.jsonGamesPath + ".\" Check your user settings are up to date \nIf it's easier, your sensitivity should be " + sensitvity + ". (This will not work if your game is Battlefield V)");
                     MessageBox.Show(directoryErrorMessage);
                 }
             }
@@ -84,7 +86,7 @@ namespace autosens
         {
             Game obj = comboGame.SelectedItem as Game;
             label3.Text = "Current: " + obj.currentSensitivity;
-            if(Storage.userSettings != null && Storage.userSettings.defaultSens != 0)
+            if (Storage.userSettings != null && Storage.userSettings.defaultSens != 0)
             {
                 textBox1.Text = Storage.userSettings.defaultSens.ToString("0.0");
             }

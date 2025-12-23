@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace autosens.Forms
@@ -14,7 +7,7 @@ namespace autosens.Forms
     {
         public Form3(string messageOverride)
         {
-            if(messageOverride != "blank")
+            if (messageOverride != "blank")
             {
                 InitializeComponent();
                 label1.Text = messageOverride;
@@ -39,19 +32,10 @@ namespace autosens.Forms
             Hide();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\autosens\\Data\\";
+            System.Diagnostics.Process.Start("explorer.exe", path);
         }
     }
 }

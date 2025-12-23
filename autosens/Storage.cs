@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Windows;
 
@@ -69,7 +70,16 @@ namespace autosens
         public static void writeGamesList()
         {
             gamesList.Sort((x, y) => x.name.CompareTo(y.name));
-            jsonGamesString = JsonSerializer.Serialize(gamesList, new JsonSerializerOptions { WriteIndented = true });
+            var filteredGamesList = gamesList.Select(obj => new
+            {
+                obj.name,
+                obj.conversionCalc,
+                obj.reverseCalc,
+                obj.configPathTemplate,
+                obj.replacementText,
+            }).ToList();
+
+            jsonGamesString = JsonSerializer.Serialize(filteredGamesList, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(jsonGamesPath, jsonGamesString);
         }
 
@@ -125,13 +135,15 @@ namespace autosens
                     new Game { name = "The Finals", conversionCalc = "571.5 / [cm]", reverseCalc = "571.5 / [sens]", configPathTemplate = "[LOCALAPPDATA]\\Discovery\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav", replacementText = "MouseSensitivity", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "Counterstrike 2", conversionCalc = "25.977 / [cm]", reverseCalc = "25.977 / [sens]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\userdata\\[STEAMID]\\730\\local\\cfg\\cs2_user_convars_0_slot0.vcfg", replacementText = "\"sensitivity\"", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "Battlefield V", conversionCalc = "((166.24 / [cm]) - 3.3333) * 0.0015", reverseCalc = "166.24 / (([sens] / 0.0015) + 3.333)", configPathTemplate = "[DOCUMENTS]\\Battlefield V\\settings\\PROFSAVE_profile_synced", replacementText = "GstInput.MouseSensitivity ", configPath = " ", currentSensitivity = "0.0"},
-                    new Game { name = "Deadlock", conversionCalc = "12.9886 / [cm]​", reverseCalc = "12.9886 / [sens]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Deadlock\\game\\citadel\\cfg", replacementText = "\"sensitvity\"", configPath = " ", currentSensitivity = "0.0"},
+                    new Game { name = "Deadlock", conversionCalc = "12.9886 / [cm]​", reverseCalc = "12.9886 / [sens]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Deadlock\\game\\citadel\\cfg\\user_convars_0_slot0.vcfg", replacementText = "\"sensitvity\"", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "Battlefield 6", conversionCalc = "((329.16 / [cm]) - 1.3333)", reverseCalc = "329.16 / ([sens] + 1.333)", configPathTemplate = "[DOCUMENTS]\\Battlefield 6\\settings\\steam\\PROFSAVE_profile", replacementText = "GstInput.MouseSensitivity ", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "Valorant", conversionCalc = "8.164 / [cm]", reverseCalc = "8.164 / [sens]", configPathTemplate = "[LOCALAPPDATA]\\VALORANT\\Saved\\Config\\[UNKNOWN]\\Windows\\RiotUserSettings.ini", replacementText = "MouseSensitivity=", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "Overwatch 2", conversionCalc = "86.591 / [cm]", reverseCalc = "86.591 / [sens]", configPathTemplate = "Overwatch's sensitivity isn't stored locally, this is just here so you can use this tool to convert your sensitivity manually", replacementText = "hi :3", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "ARC Raiders X Axis", conversionCalc = "419.9195 / [cm]", reverseCalc = "419.9195 / [sens]", configPathTemplate = "[LOCALAPPDATA]\\PioneerGame\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav", replacementText = "SensitivityXAxis", configPath = " ", currentSensitivity = "0.0"},
                     new Game { name = "ARC Raiders Y Axis", conversionCalc = "419.9195 / [cm]", reverseCalc = "419.9195 / [sens]", configPathTemplate = "[LOCALAPPDATA]\\PioneerGame\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav", replacementText = "SensitivityYAxis", configPath = " ", currentSensitivity = "0.0"},
-                    new Game { name = "Apex Legends", conversionCalc = "25.977 / [cm]", reverseCalc = "25.977 / [sens]", configPathTemplate = "C:\\Users\\[UNKNOWN]\\Saved Games\\Respawn\\Apex\\local\\settings.cfg", replacementText = "mouse_sensitivity ", configPath = " ", currentSensitivity = "0.0"}
+                    new Game { name = "Apex Legends", conversionCalc = "25.977 / [cm]", reverseCalc = "25.977 / [sens]", configPathTemplate = "C:\\Users\\[UNKNOWN]\\Saved Games\\Respawn\\Apex\\local\\settings.cfg", replacementText = "mouse_sensitivity ", configPath = " ", currentSensitivity = "0.0"},
+                    new Game { name = "Team Fortress 2", conversionCalc = "25.977 / [cm]", reverseCalc = "25.977 / [sens]", configPathTemplate = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\cfg\\config.cfg", replacementText = "sensitivity", configPath = " ", currentSensitivity = "0.0"},
+                    new Game { name = "Battlefield 4", conversionCalc = "((166.24 / [cm]) - 3.3333)", reverseCalc = "166.24 / (([sens]) + 3.333)", configPathTemplate = "[DOCUMENTS]\\Battlefield 4\\settings\\PROFSAVE_profile", replacementText = "GstInput.MouseSensitivity ", configPath = " ", currentSensitivity = "0.0"}
                 };
             Directory.CreateDirectory(localAppDataPath + "\\autosens\\Data\\");
             writeGamesList();

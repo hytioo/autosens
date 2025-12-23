@@ -10,6 +10,8 @@ Autosens currently supports:
 - Counterstrike 2
 - Deadlock
 - The Finals
+- Valorant
+- Overwatch 2 (this is only partial support as the user data for this game is stored in the cloud. It will calculate your sensitivity but cannot automatically apply it sorry).
 
 ## User settings
 Upon startup, autosens will ask for your DPI (mandatory), your SteamID (found at `C:\Program Files (x86)\Steam\userdata`, not mandatory unless a game such as CS2 is storing the config there), and your default cm/360 (not mandatory). 
@@ -23,7 +25,7 @@ A sensitivity formula (`conversionCalc`). Please enter this as though it is at 1
 
 A formula to calculate the cm/360 from the existing sensitivity (`reverseCalc`). This is not mandatory, and should also be a mathematical operation, substituting `[sens]` for the existing sensitivity. CS2 is therefore `25.977 / [sens]`.
 
-The file path template (`configPathTemplate`) of the games' config file. There are four possible substitutions (`[LOCALAPPDATA]`,`[APPDATA]`,`[DOCUMENTS]`,`[STEAMID]`) in order to make this work across systems, however you can simply input your individual file path if you prefer. To give two examples, The Finals is located at `[LOCALAPPDATA]\\Discovery\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav`, while CS2 is at `C:\\Program Files (x86)\\Steam\\userdata\\[STEAMID]\\730\\local\\cfg\\cs2_user_convars_0_slot0.vcfg`
+The file path template (`configPathTemplate`) of the games' config file. There are five possible substitutions (`[LOCALAPPDATA]`,`[APPDATA]`,`[DOCUMENTS]`,`[STEAMID]`,`[UNKNOWN]`) in order to make this work across systems however, you can simply input your individual file path if you prefer. `[UNKNOWN]` is used for user specific folders, such as Valorant, which stores the sensitivity in a subdirectory that is named after a unique Riot indentifier. To give two examples, The Finals is located at `[LOCALAPPDATA]\\Discovery\\Saved\\SaveGames\\EmbarkOptionSaveGame.sav`, while CS2 is at `C:\\Program Files (x86)\\Steam\\userdata\\[STEAMID]\\730\\local\\cfg\\cs2_user_convars_0_slot0.vcfg`
 
 The name of the variable within the config file (`replacementText`). This must be unique within that file, as duplicates may result in the wrong variable being changed. Do not include the actual variable, just the text that precedes it.
 

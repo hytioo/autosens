@@ -5,8 +5,7 @@ namespace autosens
 {
     public static class ConfigSearcher
     {
-//this is a test
-        public static string findConfigPath(string path)
+        public static string FindConfigPath(string path)
         {
             if (string.IsNullOrEmpty(path))
             {

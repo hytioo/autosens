@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
+using AutoUpdaterDotNET;
 
 namespace autosens
 {
@@ -20,14 +21,16 @@ namespace autosens
         private static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private static string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private static string localLowPath = Environment.ExpandEnvironmentVariables("%LOCALAPPDATA%Low");
         public static string steamPath = GetSteamPath();
         public static string jsonUserSettingsPath = localAppDataPath + "\\autosens\\Data\\userSettings.json";
         public static string jsonGamesPath = localAppDataPath + "\\autosens\\Data\\games.json";
-        public static string version = "1.3.0";
+        public static string version = "1.4.0";
         public static string currentGameName = "";
 
         public static void InitializeStorage()
         {
+            AutoUpdater.Start("https://raw.githubusercontent.com/sillynov/autosens/refs/heads/master/update.xml");
             if (File.Exists(jsonGamesPath))
             {
                 ReadGamesList();
@@ -125,6 +128,7 @@ namespace autosens
                 string configPath = game.configPathTemplate;
                 configPath = configPath.Replace("[APPDATA]", appDataPath);
                 configPath = configPath.Replace("[LOCALAPPDATA]", localAppDataPath);
+                configPath = configPath.Replace("[LOCALLOW]", localLowPath);
                 configPath = configPath.Replace("[DOCUMENTS]", documentsPath);
                 configPath = configPath.Replace("[STEAMID]", userSettings.steamProfileID);
                 configPath = configPath.Replace("[STEAM]", steamPath);
@@ -152,7 +156,8 @@ namespace autosens
                     new Game { name = "Team Fortress 2", conversionCalc = "25.977 / [cm]", reverseCalc = "25.977 / [sens]", configPathTemplate = "[STEAM]\\steamapps\\common\\Team Fortress 2\\tf\\cfg\\config.cfg", replacementText = "sensitivity", configPath = " ", currentSensitivity = "0.0", notFoundText = "Couldn't locate config file at [PATH].\nYour sensitivity should be: [SENS].\nYou can update the path below:", allowUpdate = true},
                     new Game { name = "Battlefield 4", conversionCalc = "((166.24 / [cm]) - 3.3333)", reverseCalc = "166.24 / (([sens]) + 3.333)", configPathTemplate = "[DOCUMENTS]\\Battlefield 4\\settings\\PROFSAVE_profile", replacementText = "GstInput.MouseSensitivity ", configPath = " ", currentSensitivity = "0.0", notFoundText = "Couldn't locate config file at [PATH].\nYour sensitivity should be: [SENS].\nYou can update the path below:", allowUpdate = true},
                     new Game { name = "Black Ops 7", conversionCalc = "86.5909 / [cm]", reverseCalc = "86.5909 / [sens]", configPathTemplate = "[LOCALAPPDATA]\\Activision\\Call of Duty\\players\\[UNKNOWN]\\g.cod25.1.0.l.txt0", replacementText = "MouseHorizontalSensibility@0;12088;6692", configPath = " ", currentSensitivity = "0.0", notFoundText = "Couldn't locate config file at [PATH].\nYour sensitivity should be: [SENS].\nYou can update the path below:", allowUpdate = true},
-                    new Game { name = "Fortnite", conversionCalc = "102.880 / [cm]", reverseCalc = "102.880 / [sens]", configPathTemplate = "lmk if u find this one", replacementText = "battle bus", configPath = " ", currentSensitivity = "0.0", notFoundText = "No clue where the config file for this one is. Feel free to open an issue on the Github if you know.\nYour sensitivity should be: [SENS].", allowUpdate = false}
+                    new Game { name = "Fortnite", conversionCalc = "102.880 / [cm]", reverseCalc = "102.880 / [sens]", configPathTemplate = "lmk if u find this one", replacementText = "battle bus", configPath = " ", currentSensitivity = "0.0", notFoundText = "No clue where the config file for this one is. Feel free to open an issue on the Github if you know.\nYour sensitivity should be: [SENS].", allowUpdate = false},
+                    new Game { name = "Gunfire Reborn", conversionCalc = "114.3 / [cm]", reverseCalc = "114.3 / [sens]", configPathTemplate = "[LOCALLOW]\\duoyi\\Gunfire Reborn\\usersetting.ini", replacementText = "201=", configPath = " ", currentSensitivity = "0.0", notFoundText = "Couldn't locate config file at [PATH].\nYour sensitivity should be: [SENS].\nYou can update the path below:", allowUpdate = true}
                 };
             Directory.CreateDirectory(localAppDataPath + "\\autosens\\Data\\");
             WriteGamesList();

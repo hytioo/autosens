@@ -266,7 +266,7 @@ namespace autosens
             {
                 return "Not Found";
             }
-            return finalCm.ToString("0.0####");
+            return finalCm.ToString("0.0");
         }
 
         private static float OldSensBinary(string filePath, string searchText)

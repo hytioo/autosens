@@ -12,12 +12,13 @@ Autosens currently supports:
 - The Finals
 - Valorant (partial support)
 - Overwatch 2 (partial support)
-- ARC Raiders (the game stores the x and y sensitivities differently so I am doing the same)
+- ARC Raiders
 - Apex Legends
 - Team Fortress 2
 - Battlefield 4
 - Black Ops 7
 - Fortnite (partial support)
+- Gunfire Reborn
 
 ## User settings
 Upon startup, autosens will ask for your DPI (mandatory), your SteamID (found at `C:\Program Files (x86)\Steam\userdata`, not mandatory unless a game such as CS2 is storing the config there), and your default cm/360 (not mandatory). 
